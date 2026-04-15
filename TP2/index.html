@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mundial 2026 2.0</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      /* Transición suave para todos los elementos que cambian de color */
+      body,
+      .navbar-dinamica,
+      .footer-dinamico {
+        transition: background-color 0.4s ease;
+      }
+
+      /* Estilo para que las imágenes del carrusel no sean excesivamente altas */
+      .carousel-item img {
+        height: 200px;
+        object-fit: cover; /* Esto evita que la imagen se deforme */
+      }
+
+      /* Móvil (hasta 767px): Body Rojo / Nav y Footer Verde */
+      @media (max-width: 767px) {
+        body {
+          background-color: #ff6666;
+        }
+        .navbar-dinamica,
+        .footer-dinamico {
+          background-color: #66ff99;
+        }
+        .carousel-item img {
+          height: 100px;
+        } /* Ajuste de altura para móvil */
+      }
+
+      /* Tablet (768px a 991px): Body Azul / Nav y Footer Rojo */
+      @media (min-width: 768px) and (max-width: 991px) {
+        body {
+          background-color: #66b3ff;
+        }
+        .navbar-dinamica,
+        .footer-dinamico {
+          background-color: #ff6666;
+        }
+      }
+
+      /* Escritorio (992px en adelante): Body Verde / Nav y Footer Azul */
+      @media (min-width: 992px) {
+        body {
+          background-color: #66ff99;
+        }
+        .navbar-dinamica,
+        .footer-dinamico {
+          background-color: #66b3ff;
+        }
+      }
+    </style>
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <header>
+      <div id="carouselMundial" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img
+              src="imagenes_tp2/carrousel_1.jpg"
+              class="d-block w-100"
+              alt="Banner 1"
+            />
+            <!--<div class="carousel-caption d-none d-md-block">
+              <h5>México 2026</h5>
+              <p>La pasión del fútbol regresa al Estadio Azteca.</p>
+            </div>-->
+          </div>
+          <div class="carousel-item">
+            <img
+              src="imagenes_tp2/carrousel_2.jpg"
+              class="d-block w-100"
+              alt="Banner 2"
+            />
+            <!--<div class="carousel-caption d-none d-md-block">
+              <h5>Canadá 2026</h5>
+              <p>Nuevos horizontes para el Mundial de la FIFA.</p>
+            </div>-->
+          </div>
+          <div class="carousel-item">
+            <img
+              src="imagenes_tp2/carrousel_3.jpg"
+              class="d-block w-100"
+              alt="Banner 3"
+            />
+            <!--<div class="carousel-caption d-none d-md-block">
+              <h5>Estados Unidos 2026</h5>
+              <p>La gran final en el escenario más grande.</p>
+            </div>-->
+          </div>
+        </div>
+
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselMundial"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselMundial"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Siguiente</span>
+        </button>
+      </div>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-dinamica shadow-sm">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="#">INICIO</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#"
+                >Equipos</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Fixture</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Sedes Oficiales
+              </a>
+              <ul class="dropdown-menu">
+                <li><h6 class="dropdown-header">México</h6></li>
+                <li><a class="dropdown-item" href="#">Ciudad de México</a></li>
+                <li><a class="dropdown-item" href="#">Guadalajara</a></li>
+                <li><a class="dropdown-item" href="#">Monterrey</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><h6 class="dropdown-header">Canadá</h6></li>
+                <li><a class="dropdown-item" href="#">Toronto</a></li>
+                <li><a class="dropdown-item" href="#">Vancouver</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><h6 class="dropdown-header">Estados Unidos</h6></li>
+                <li><a class="dropdown-item" href="#">Miami</a></li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    >Nueva York / Nueva Jersey</a
+                  >
+                </li>
+                <li><a class="dropdown-item" href="#">Los Ángeles</a></li>
+                <li><a class="dropdown-item" href="#">Dallas</a></li>
+                <li>
+                  <a class="dropdown-item" href="#">Ver las 11 sedes...</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container my-5 flex-grow-1">
+      <div class="row">
+        <div class="col-md-8 offset-md-2 text-center">
+          <h1 class="mb-4">Mundial FIFA 2026</h1>
+          <p class="lead">
+            La Copa Mundial de la FIFA 2026 marcará un hito en la historia del
+            fútbol. Por primera vez, el torneo será organizado de manera
+            conjunta por tres países:
+            <strong>Estados Unidos, Canadá y México</strong>. Además, será la
+            primera edición en la que participarán
+            <strong>48 selecciones nacionales</strong>, ampliando la competencia
+            y llevando la pasión de este deporte a un nivel global con un
+            formato renovado.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer-dinamico text-dark py-3 mt-auto shadow-lg">
+      <div class="container d-flex justify-content-between align-items-center">
+        <div class="fw-bold">Matias Farina Solá - Lenguajes 3 - 2026 ©</div>
+        <div class="fw-bold">Desarrollado con HTML5 & Bootstrap 5.3.8</div>
+        <div>
+          <img
+            src="imagenes_tp2/logo_pelota_2.jpg"
+            alt="Copa"
+            class="rounded-circle"
+            style="width: 40px; height: 40px; object-fit: cover"
+          />
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+1) Realizar en Visual Code un Caruousel usando Bootstrap con CDN, donde
+nuestro proyecto Html, tenga el caurosel en el encabezado. Que este
+caurosel contenga tres imágenes con su respectivo botón para desplazar
+los slide a los laterales. Un cuerpo con información y un footer con un
+contacto referido a donde se tomó la información.
+
+2) Presentar el TP en la plataforma de trabajos prácticos con capturas de
+pantalla en Word o PDF de las mejoras incorporadas al Proyecto
+mencionado. 
