@@ -1,0 +1,9 @@
+#main-title {
+    transition: color 0.3s ease;
+    cursor: default;
+}
+
+/* Estilo para que DataTables no interfiera con los efectos de fade de jQuery */
+.hidden-row {
+    display: none;
+}
