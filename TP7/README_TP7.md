@@ -61,4 +61,4 @@ El color del borde o del encabezado de la card debe cambiar según el **estado**
 
 ---
 *Referencia de la API: https://rickandmortyapi.com*
-*Deploy tp7: https://leng-3-tp7-dom-api-matifa.vercel.app/*
+**Deploy tp7:** https://leng-3-tp7-dom-api-matifa.vercel.app/*
