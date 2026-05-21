@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Desafío 2 - Conversor de Unidades</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    rel="stylesheet"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> 
+    
+    <style>
+      body {
+        background-color: #f0f4f8;
+      }
+      .page-header {
+        background: linear-gradient(135deg, #1a73e8, #0d47a1);
+        color: white;
+        border-radius: 0 0 1rem 1rem;
+        padding: 2rem 1.5rem 1.5rem;
+        margin-bottom: 2rem;
+      }
+      .btn-nav-custom {
+        border: 1px solid white !important; /* Borde blanco */
+        color: white !important;           /* Texto blanco */
+        background-color: transparent;     /* Fondo transparente */
+        margin-left: 10px;                 /* Separación entre botones */
+        border-radius: 5px;                /* Bordes redondeados */
+        transition: all 0.3s ease;         /* Animación suave */
+    }
+
+    /* Estado cuando pasas el mouse o está seleccionado */
+    .btn-nav-custom:hover, 
+    .btn-nav-custom.active {
+        background-color: white !important;
+        color: black !important;
+        font-weight: bold;
+    }
+    </style>
+  </head>
+  <body>
+    <!--NAV BAR-->
+    <div id="navbar-placeholder"></div>
+    <script>
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar-placeholder').innerHTML = data;
+            });
+    </script>
+    
+    <div class="page-header text-center">
+      <h1 class="fw-bold mb-1">
+        <i class="bi bi-mortarboard-fill me-2"></i>Conversor de unidades
+      </h1>
+      <p class="mb-0 opacity-75">Desafío 2 - Lenguajes III · 2026</p>
+    </div>
+    <div class="container" style="max-width: 600px">
+      <div class="card shadow-sm p-4">
+        <label class="form-label fw-bold">Seleccionar conversión:</label>
+        <select id="tipoConversion" class="form-select mb-3">
+          <option value="1">Kilómetros (km) → Millas</option>
+          <option value="2">Millas → Kilómetros (km)</option>
+          <option value="3">Kilogramos (kg) → Libras (lb)</option>
+          <option value="4">Libras (lb) → Kilogramos (km)</option>
+          <option value="5">Celsius (°C) → Fahrenheit (°F)</option>
+          <option value="6">Fahrenheit (°F) → Celsius (°C)</option>
+          <option value="7">Metros (m) → Pies (ft)</option>
+        </select>
+
+        <label class="form-label fw-bold">Valor a convertir:</label>
+        <input
+          type="number"
+          id="valor"
+          class="form-control mb-3"
+          placeholder="Ingresá el valor"
+        />
+
+        <button class="btn btn-primary w-100" onclick="convertir()">
+          Convertir
+        </button>
+        <div id="resultado" class="mt-3 alert alert-info text-center">
+          Esperando conversión...
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <h5>Historial de conversiones:</h5>
+        <ul id="historial" class="list-group"></ul>
+      </div>
+    </div>
+
+    <script src="desafio2.js"></script>   
+  </body>
+</html>

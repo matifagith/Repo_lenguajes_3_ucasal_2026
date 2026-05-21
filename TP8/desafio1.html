@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Desafío 1 — Calculadora de Rendimiento Académico</title>
+
+  <!-- Bootstrap 5 CSS — framework de estilos que usamos para toda la interfaz -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+
+  <!-- Bootstrap Icons — para los íconos de los botones y mensajes -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    rel="stylesheet"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> 
+
+  <style>
+    /* Fondo suave para toda la página */
+    body { background-color: #f0f4f8; }
+
+    /* Encabezado con gradiente */
+    .page-header {
+      background: linear-gradient(135deg, #1a73e8, #0d47a1);
+      color: white;
+      border-radius: 0 0 1rem 1rem;
+      padding: 2rem 1.5rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Badge de categoría con un color personalizado por tipo */
+    .badge-sobresaliente { background-color: #198754; }
+    .badge-bueno         { background-color: #0d6efd; }
+    .badge-regular       { background-color: #fd7e14; }
+    .badge-aprobado      { background-color: #ffc107; color: #212529 !important; }
+    .badge-insuficiente  { background-color: #dc3545; }
+
+    .btn-nav-custom {
+        border: 1px solid white !important; /* Borde blanco */
+        color: white !important;           /* Texto blanco */
+        background-color: transparent;     /* Fondo transparente */
+        margin-left: 10px;                 /* Separación entre botones */
+        border-radius: 5px;                /* Bordes redondeados */
+        transition: all 0.3s ease;         /* Animación suave */
+    }
+
+    /* Estado cuando pasas el mouse o está seleccionado */
+    .btn-nav-custom:hover, 
+    .btn-nav-custom.active {
+        background-color: white !important;
+        color: black !important;
+        font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+    <script>
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar-placeholder').innerHTML = data;
+            });
+    </script>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       ENCABEZADO DE PÁGINA
+       ══════════════════════════════════════════════════════════════ -->
+  <div class="page-header text-center">
+    <h1 class="fw-bold mb-1">
+      <i class="bi bi-mortarboard-fill me-2"></i>Calculadora de Rendimiento Académico
+    </h1>
+    <p class="mb-0 opacity-75">Desafío 1 — Lenguajes III · 2026</p>
+  </div>
+
+  <div class="container pb-5" style="max-width: 760px;">
+
+    <!-- ══════════════════════════════════════════════════════════════
+         CARD DE INGRESO DE DATOS
+         ══════════════════════════════════════════════════════════════ -->
+    <div class="card shadow-sm mb-4">
+      <div class="card-header bg-primary text-white fw-semibold">
+        <i class="bi bi-plus-circle me-2"></i>Agregar materia
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+
+          <!-- Input: nombre de la materia (id="materia") -->
+          <div class="col-md-6">
+            <label for="materia" class="form-label fw-semibold">Nombre de la materia</label>
+            <input
+              type="text"
+              id="materia"
+              class="form-control"
+              placeholder="Ej: Matemáticas"
+            />
+          </div>
+
+          <!-- Input: nota del 0 al 10 (id="nota") -->
+          <div class="col-md-3">
+            <label for="nota" class="form-label fw-semibold">Nota (0 – 10)</label>
+            <input
+              type="number"
+              id="nota"
+              class="form-control"
+              placeholder="Ej: 8"
+              min="0"
+              max="10"
+              step="0.1"
+            />
+          </div>
+
+          <!-- Botón "Agregar materia" → llama a agregarMateria() -->
+          <div class="col-md-3 d-flex align-items-end">
+            <button class="btn btn-primary w-100" onclick="agregarMateria()">
+              <i class="bi bi-check-lg me-1"></i>Agregar
+            </button>
+          </div>
+        </div>
+
+        <!-- Zona de error (sin usar alert()) — visible sólo cuando hay problema -->
+        <div id="error" class="mt-2"></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════════
+         CARD DE LISTA DE MATERIAS (id="lista")
+         ══════════════════════════════════════════════════════════════ -->
+    <div class="card shadow-sm mb-4">
+      <div class="card-header bg-secondary text-white fw-semibold d-flex justify-content-between align-items-center">
+        <span><i class="bi bi-table me-2"></i>Lista de materias</span>
+        <!-- Punto extra: botón "Limpiar todo" → llama a limpiarTodo() -->
+        <button class="btn btn-sm btn-outline-light" onclick="limpiarTodo()">
+          <i class="bi bi-trash me-1"></i>Limpiar todo
+        </button>
+      </div>
+      <div class="card-body p-0">
+        <div id="lista" class="p-3 text-muted fst-italic">
+          Aún no hay materias registradas.
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════════
+         CARD DE RESUMEN ESTADÍSTICO (id="resumen")
+         ══════════════════════════════════════════════════════════════ -->
+    <div class="card shadow-sm">
+      <div class="card-header bg-success text-white fw-semibold">
+        <i class="bi bi-bar-chart-fill me-2"></i>Resumen estadístico
+      </div>
+      <div class="card-body">
+        <div id="resumen" class="text-muted fst-italic">
+          Aún no hay materias registradas.
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /container -->
+
+
+  <!-- Bootstrap 5 JS (sin jQuery — sólo el bundle oficial) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+
+    // ── VARIABLE GLOBAL ──────────────────────────────────────────────────────
+    // Array donde guardamos cada materia como objeto { materia, nota }.
+    // Vive fuera de las funciones para que todas puedan leerlo y modificarlo.
+    var materias = [];
+
+
+    // ════════════════════════════════════════════════════════════════════════
+    // 1. obtenerDatos()
+    //    Patrón del coloquio: lee los dos inputs, los valida y retorna null
+    //    si hay algún error, o el objeto { materia, nota } si todo está bien.
+    //
+    //    Conceptos aplicados:
+    //      · isNaN()     → detecta si un valor NO es un número
+    //      · return null → señal de error que el llamador debe revisar
+    //      · do...while  → podría usarse para reintentar; aquí se aplica
+    //                       la validación secuencial equivalente
+    // ════════════════════════════════════════════════════════════════════════
+    function obtenerDatos() {
+
+      // Leemos el nombre de la materia y quitamos espacios al inicio y al fin
+      var nombreMateria = document.getElementById("materia").value.trim();
+
+      // Leemos la nota (llega como string; la convertiremos luego con parseFloat)
+      var valorNota = document.getElementById("nota").value;
+
+      // Limpiamos cualquier mensaje de error que hubiera quedado de antes
+      document.getElementById("error").innerHTML = "";
+
+      // ── Validación 1: el nombre no puede estar vacío ──────────────────────
+      if (nombreMateria === "") {
+        mostrarError("El nombre de la materia no puede estar vacío.");
+        return null;   // null indica que los datos son inválidos
+      }
+
+      // ── Validación 2: la nota debe ser un número ──────────────────────────
+      // isNaN("") devuelve false (interpreta vacío como 0), por eso
+      // también verificamos que el campo no esté vacío.
+      if (valorNota === "" || isNaN(valorNota)) {
+        mostrarError("La nota debe ser un número.");
+        return null;
+      }
+
+      // Convertimos el string a número decimal
+      var nota = parseFloat(valorNota);
+
+      // ── Validación 3: la nota debe estar entre 0 y 10 ────────────────────
+      if (nota < 0 || nota > 10) {
+        mostrarError("La nota debe estar entre 0 y 10.");
+        return null;
+      }
+
+      // Todo válido → retornamos el objeto con los datos listos para usar
+      return { materia: nombreMateria, nota: nota };
+    }
+
+
+    // ════════════════════════════════════════════════════════════════════════
+    // 2. clasificarNota(nota)
+    //    Recibe un número y devuelve su categoría como string.
+    //
+    //    Concepto aplicado:
+    //      · if / else if / else encadenados (Ejercicio 1 de teoría)
+    //    La lógica es la misma que "positivo/negativo" del ejercicio 1:
+    //    se evalúan condiciones en cascada hasta encontrar la que corresponde.
+    // ════════════════════════════════════════════════════════════════════════
+    function clasificarNota(nota) {
+
+      // Evaluamos de mayor a menor para no "tapar" condiciones anteriores
+      if (nota >= 9) {
+        return "Sobresaliente";        // 9 – 10
+      } else if (nota >= 7) {
+        return "Bueno";                // 7 – 8.9
+      } else if (nota >= 6) {
+        return "Regular";              // exactamente 6 – 6.9
+      } else if (nota >= 4) {
+        return "Aprobado mínimo";      // 4 – 5.9
+      } else {
+        return "Insuficiente";         // menos de 4
+      }
+    }
+
+
+    // ════════════════════════════════════════════════════════════════════════
+    // 3. agregarMateria()
+    //    Función principal conectada al botón. Orquesta el resto.
+    // ════════════════════════════════════════════════════════════════════════
+    function agregarMateria() {
+
+      // Pedimos los datos validados; si retorna null hay error → salimos
+      var datos = obtenerDatos();
+      if (datos === null) {
+        return;
+      }
+
+      // Guardamos el objeto { materia, nota } en el array global
+      materias.push(datos);
+
+      // Actualizamos tabla y estadísticas en el DOM
+      mostrarLista();
+      calcularResumen();
+
+      // Limpiamos los inputs para que el usuario pueda ingresar la siguiente
+      document.getElementById("materia").value = "";
+      document.getElementById("nota").value    = "";
+      document.getElementById("materia").focus();
+    }
+
+
+    // ════════════════════════════════════════════════════════════════════════
+    // 4. mostrarLista()
+    //    Genera la tabla HTML completa y la inserta en el div "lista".
+    //
+    //    Concepto aplicado:
+    //      · Bucle for para recorrer array (Ejercicio 2 de teoría)
+    //      · innerHTML dinámico → escribir HTML desde JavaScript
+    // ════════════════════════════════════════════════════════════════════════
+    function mostrarLista() {
+
+      // Si el array está vacío mostramos un mensaje y salimos
+      if (materias.length === 0) {
+        document.getElementById("lista").innerHTML =
+          "<p class='text-muted fst-italic p-3 mb-0'>Aún no hay materias registradas.</p>";
+        return;
+      }
+
+      // Empezamos a construir el HTML de la tabla Bootstrap
+      var html = "<div class='table-responsive'>";
+      html += "<table class='table table-hover align-middle mb-0'>";
+      html += "<thead class='table-dark'>";
+      html += "<tr><th>#</th><th>Materia</th><th>Nota</th><th>Categoría</th></tr>";
+      html += "</thead><tbody>";
+
+      // ── Bucle for: recorremos el array de índice 0 hasta el último ────────
+      // i es el índice actual; materias[i] es el objeto { materia, nota }
+      for (var i = 0; i < materias.length; i++) {
+
+        // Obtenemos la categoría de esta nota
+        var categoria = clasificarNota(materias[i].nota);
+
+        // Determinamos la clase Bootstrap del badge según la categoría
+        var claseBadge = "";
+        if (categoria === "Sobresaliente") {
+          claseBadge = "badge-sobresaliente";
+        } else if (categoria === "Bueno") {
+          claseBadge = "badge-bueno";
+        } else if (categoria === "Regular") {
+          claseBadge = "badge-regular";
+        } else if (categoria === "Aprobado mínimo") {
+          claseBadge = "badge-aprobado";
+        } else {
+          claseBadge = "badge-insuficiente";
+        }
+
+        // Construimos la fila; i + 1 para que el número empiece en 1
+        html += "<tr>";
+        html += "<td class='text-muted'>" + (i + 1) + "</td>";
+        html += "<td class='fw-semibold'>" + materias[i].materia + "</td>";
+        html += "<td>" + materias[i].nota + "</td>";
+        html += "<td><span class='badge text-white " + claseBadge + "'>" + categoria + "</span></td>";
+        html += "</tr>";
+      }
+
+      html += "</tbody></table></div>";
+
+      // Insertamos todo el HTML generado en el div "lista" del DOM
+      document.getElementById("lista").innerHTML = html;
+    }
+
+
+    // ════════════════════════════════════════════════════════════════════════
+    // 5. calcularResumen()
+    //    Calcula todas las estadísticas y las muestra en el div "resumen".
+    //
+    //    Conceptos aplicados:
+    //      · while + acumulador → suma de notas      (Ejercicio 3)
+    //      · while + contador   → aprobadas/reprobadas (Ejercicio 4)
+    //      · while + mayor/menor → mejor y peor nota  (Ejercicio 6)
+    // ════════════════════════════════════════════════════════════════════════
+    function calcularResumen() {
+
+      if (materias.length === 0) {
+        document.getElementById("resumen").innerHTML =
+          "<p class='text-muted fst-italic mb-0'>Aún no hay materias registradas.</p>";
+        return;
+      }
+
+      // ── Inicialización ANTES del bucle ────────────────────────────────────
+      var suma       = 0;               // Acumulador de notas
+      var aprobadas  = 0;               // Contador: nota >= 6
+      var reprobadas = 0;               // Contador: nota < 6
+
+      // Iniciamos mayor/menor con el primer elemento (no con 0, que es una nota válida)
+      var mejorNota    = materias[0].nota;
+      var mejorMateria = materias[0].materia;
+      var peorNota     = materias[0].nota;
+      var peorMateria  = materias[0].materia;
+
+      // ── Bucle while con índice manual ─────────────────────────────────────
+      // Equivalente al for, pero con while explícito como piden los ejercicios 3 y 4.
+      var i = 0;
+      while (i < materias.length) {
+
+        var notaActual = materias[i].nota;
+
+        // Acumulamos la nota en la suma (Ejercicio 3)
+        suma = suma + notaActual;
+
+        // Contamos aprobadas/reprobadas (Ejercicio 4) — aprobación: nota >= 6
+        if (notaActual >= 6) {
+          aprobadas = aprobadas + 1;
+        } else {
+          reprobadas = reprobadas + 1;
+        }
+
+        // Búsqueda del mayor: si encontramos uno más alto, actualizamos (Ejercicio 6)
+        if (notaActual > mejorNota) {
+          mejorNota    = notaActual;
+          mejorMateria = materias[i].materia;
+        }
+
+        // Búsqueda del menor: si encontramos uno más bajo, actualizamos
+        if (notaActual < peorNota) {
+          peorNota    = notaActual;
+          peorMateria = materias[i].materia;
+        }
+
+        i = i + 1;   // ¡Fundamental! Sin esto el while sería infinito
+      }
+
+      // Promedio = suma total / cantidad de materias
+      var promedio = suma / materias.length;
+
+      // ── Armamos las tarjetas de estadísticas con Bootstrap ────────────────
+      var html = "<div class='row g-3'>";
+
+      html += tarjetaStat("bi-calculator", "primary",  "Promedio",   promedio.toFixed(2));
+      html += tarjetaStat("bi-check-circle", "success", "Aprobadas",  aprobadas);
+      html += tarjetaStat("bi-x-circle",    "danger",  "Reprobadas", reprobadas);
+      html += tarjetaStat("bi-trophy",      "warning", "Mejor nota",
+                          mejorNota + " <small class='fw-normal'>(" + mejorMateria + ")</small>");
+      html += tarjetaStat("bi-arrow-down-circle", "secondary", "Peor nota",
+                          peorNota + " <small class='fw-normal'>(" + peorMateria + ")</small>");
+
+      html += "</div>";
+
+      document.getElementById("resumen").innerHTML = html;
+    }
+
+
+    // ════════════════════════════════════════════════════════════════════════
+    // tarjetaStat(icono, color, titulo, valor)
+    //    Función auxiliar: genera el HTML de una tarjeta Bootstrap de estadística.
+    //    Separamos esta lógica para no repetir el mismo bloque HTML 5 veces.
+    // ════════════════════════════════════════════════════════════════════════
+    function tarjetaStat(icono, color, titulo, valor) {
+      return (
+        "<div class='col-6 col-md-4'>" +
+          "<div class='border rounded p-3 text-center h-100'>" +
+            "<i class='bi " + icono + " fs-3 text-" + color + "'></i>" +
+            "<div class='fw-semibold mt-1'>" + titulo + "</div>" +
+            "<div class='fs-5'>" + valor + "</div>" +
+          "</div>" +
+        "</div>"
+      );
+    }
+
+
+    // ════════════════════════════════════════════════════════════════════════
+    // mostrarError(mensaje)
+    //    Muestra un alert Bootstrap de error en el div #error.
+    //    Centralizar esto evita repetir el mismo HTML en cada validación.
+    // ════════════════════════════════════════════════════════════════════════
+    function mostrarError(mensaje) {
+      document.getElementById("error").innerHTML =
+        "<div class='alert alert-danger alert-sm py-2 mb-0 mt-2'>" +
+        "<i class='bi bi-exclamation-triangle me-2'></i>" + mensaje + "</div>";
+    }
+
+
+    // ════════════════════════════════════════════════════════════════════════
+    // PUNTO EXTRA — limpiarTodo()
+    //    Vacía el array global, limpia el DOM y reinicia el resumen.
+    // ════════════════════════════════════════════════════════════════════════
+    function limpiarTodo() {
+
+      // Vaciamos el array global reasignándolo como array vacío
+      materias = [];
+
+      // Reiniciamos los tres divs de resultados
+      document.getElementById("lista").innerHTML =
+        "<p class='text-muted fst-italic p-3 mb-0'>Aún no hay materias registradas.</p>";
+      document.getElementById("resumen").innerHTML =
+        "<p class='text-muted fst-italic mb-0'>Aún no hay materias registradas.</p>";
+      document.getElementById("error").innerHTML = "";
+
+      // Limpiamos los inputs y devolvemos el foco al primero
+      document.getElementById("materia").value = "";
+      document.getElementById("nota").value    = "";
+      document.getElementById("materia").focus();
+    }
+
+  </script>
+</body>
+</html>
