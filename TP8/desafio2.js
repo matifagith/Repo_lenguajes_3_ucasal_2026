@@ -71,6 +71,9 @@ function convertir() {
     // Punto Extra: Agregar al historial
     historial.push(mensaje);
     mostrarHistorial();
+
+    document.getElementById("valor").value = "";
+    
 }
 
 // Función para mostrar el historial usando un bucle for
