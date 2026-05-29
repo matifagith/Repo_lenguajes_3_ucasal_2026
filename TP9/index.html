@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Torneo de videojuegos 2026</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Torneo de Videojuegos 2026</h1>
+        <p class="subtitulo">Completa los pasos para inscribirte al torneo</p>
+    </header>
+
+    <main>
+        <section id="seccion-juegos">
+            <div class="titulo-seccion">
+                <span class="numero-paso">1</span>
+                <h2>Elegí tu juego</h2>
+            </div>
+            <p class="instruccion">Hacé clic en el juego en el que querés competir</p>
+            <div id="grilla-juegos">
+                <div class="tarjeta" onclick="seleccionarJuego(this, 'Minecraft')">
+                    <img src="https://store-images.s-microsoft.com/image/apps.608.13510798885735219.cf55aeca-e690-41e0-a88b-41b0e517a3be.c94e1bfa-1b68-4cf5-9954-f967168480b4?mode=scale&q=90&h=1080&w=1920" alt="Minecraft"
+                        onerror="this.style.display='none'; this.nextElementSibling.sty">
+                    <div class="img-fallback" style="display:none">Minecraft</div>
+                    <p>Minecraft</p>
+                </div>                
+                <div class="tarjeta" onclick="seleccionarJuego(this, 'Fortnite')">
+                    <img src="https://imgs.search.brave.com/CDd6E5py4j15tjQkDCF4ms5S_TouIsusWvfcGoakv9w/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pLjNk/anVlZ29zLmNvbS9q/dWVnb3MvODI5OC9m/b3J0bml0ZS9mb3Rv/cy92aWRlb3MvZm9y/dG5pdGUtNTc5NjYz/Ny53ZWJw" alt="Fortnite"
+                        onerror="this.style.display='none'; this.nextElementSibling.sty">
+                    <div class="img-fallback" style="display:none">Fortnite</div>
+                    <p>Fortnite</p>
+                </div>
+                <div class="tarjeta" onclick="seleccionarJuego(this, 'Fortnite')">
+                    <img src="https://imgs.search.brave.com/Ee4JNfaAedWJxceFO2q7YiSusgInk67Oppgiry7IRwk/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/c29mdHpvbmUuZXMv/YXBwL3VwbG9hZHMt/c29mdHpvbmUuZXMv/MjAyMy8xMi92YWxv/cmFudC5qcGc_eD01/MDAmeT0yOTUmcXVh/bGl0eT04MA" alt="Fortnite"
+                        onerror="this.style.display='none'; this.nextElementSibling.sty">
+                    <div class="img-fallback" style="display:none">Fortnite</div>
+                    <p>Valorant</p>
+                </div>
+                <div class="tarjeta" onclick="seleccionarJuego(this, 'FIFA 25')">
+                    <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/2669320/header.jpg" alt="FIFA 25"
+                        onerror="this.style.display='none'; this.nextElementSibling.sty">
+                    <div class=" img-fallback" style="display:none">FIFA 25</div>
+                <p>FIFA 25</p>
+                </div>
+                <div class="tarjeta" onclick="seleccionarJuego(this, 'Among Us')">
+                    <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/945360/header.jpg" alt="Among Us"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.dispplay='block'">
+                    <div class="img-fallback" style="display:none">Among Us</div>
+                    <p>Among Us</p>
+                </div>
+                <div class="tarjeta" onclick="seleccionarJuego(this, 'Rocket League')">
+                    <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/252950/header.jpg" alt="Rocket League"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.dispplay='block'">
+                    <div class="img-fallback" style="display:none">Rocket League</div>
+                    <p>Rocket League</p>
+                </div>
+            </div>
+            <span id="error-juego" class="error"></span>
+        </section>
+
+        <section id="seccion-formulario">
+            <div class="titulo-seccion">
+                <span class="numero-paso">2</span>
+                <h2>Tus datos</h2>
+            </div>
+            <div class="campo">
+                <label for="nickname">Nickname</label>
+                <input type="text" id="nickname" placeholder="Ej: pedro_23">
+                <span id="error-nickname" class="error"></span>
+            </div>
+            <div class="campo">
+                <label for="edad">Edad</label>
+                <input type="text" id="edad" placeholder="Ej: 20">
+                <span id="error-edad" class="error"></span>
+            </div>
+
+            <div class="campo">
+                <label for="codigo">Código de equipo</label>
+                <input type="text" id="codigo" placeholder="4 digitos, Ej: 4821">
+                <span id="error-codigo" class="error"></span>
+            </div>
+
+            <button onclick="registrar()">Registrarme al torneo</button>
+
+        </section>
+        <section id="seccion-preparacion" style="display: none;">
+            <div class="titulo-seccion">
+                <span class="numero-paso">3</span>
+                <h2>Preguntas de preparación</h2>
+            </div>
+            <p class="instruccion">Respondé 3 preguntas cortas sobre tu estilo de juego</p>
+            <button onclick="hacerPreguntas()">Iniciar cuestionario</button>
+            <div id="respuestas"></div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
