@@ -1,0 +1,64 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #e0e0e0;
+}
+
+#header {
+    text-align: center;   
+    padding: 20px;
+}
+
+#contenedor {
+    width: 600px;
+    margin: 0 auto; 
+}
+
+.formulario {
+    background-color: white;
+    border: 1px solid black;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 80%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.texto-error {
+    color: red;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.texto-exito {
+    color: green;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#boton-enviar {
+    background-color: blue;
+    color: white;
+    padding: 10px 20px;
+    border: 2px solid darkblue;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+#boton-preguntas {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: 2px solid darkgreen;
+    cursor: pointer;
+}
+
+#respuestas {
+    background-color: lightgray;
+    padding: 15px;
+    border: 1px solid gray;
+}

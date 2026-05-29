@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Parcial Lenguajes III</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+    <div id="header">
+        <h1>Inscripción al Curso</h1>
+        <h3>Completa tus datos para registrarte</h3>
+    </div>
+
+    <div id="contenedor">
+        
+        <div class="formulario">
+            <p>Nombre y Apellido:</p>
+            <input type="text" id="nombre" placeholder="Ej: Juan Perez">
+            <br>
+            <span id="error-nombre" class="texto-error"></span>
+
+            <p>DNI:</p>
+            <input type="text" id="dni" placeholder="Ej: 12345678">
+            <br>
+            <span id="error-dni" class="texto-error"></span>
+
+            <p>Fecha de Nacimiento:</p>
+            <input type="date" id="fecha">
+            <br>
+            <span id="error-fecha" class="texto-error"></span>
+
+            <br><br>
+            <button onclick="enviarFormulario()" id="boton-enviar">Enviar</button>
+            <br><br>
+            
+            <div id="mensaje-exito" class="texto-exito"></div>
+        </div>
+
+        <div class="caja">
+            <h2>Cuestionario Adicional</h2>
+            <p>Responde unas preguntas de perfil:</p>
+            <button onclick="hacerPreguntas()" id="boton-preguntas">Responder</button>            
+            <br><br>
+            <div id="respuestas"></div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
