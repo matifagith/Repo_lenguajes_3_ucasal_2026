@@ -1,6 +1,8 @@
 // Variable global que guarda el juego elegido por el jugador
 // Al ser global, cualquier funcion del archivo puede leerla
 var juegoSeleccionado = "";
+var juegador = "";
+var codigo_eq = "";
 // EJERCICIO 2 - Seleccion de juego en la grilla
 
 // Esta funcion se ejecuta cuando el jugador hace clic en una tarjeta.
@@ -30,10 +32,10 @@ function seleccionarJuego(tarjeta, nombreJuego) {
 function registrar() {
     console.log("------ Registro en proceso ------ ");
     // Ejecutamos cada validacion y guardamos si paso o no
-    var nickOk   = validarNickname();
-    var edadOk   = validarEdad();
+    var nickOk = validarNickname();
+    var edadOk = validarEdad();
     var codigoOk = validarCodigo();
-    var juegoOk  = validarJuego();
+    var juegoOk = validarJuego();
 
     // Solo si las 4 validaciones son true el registro es exitoso
     if (nickOk && edadOk && codigoOk && juegoOk) {
@@ -42,7 +44,7 @@ function registrar() {
         seccion.innerHTML = "<div class='mensaje-exito'>" +
             "<p class='exito-icono'>✅</p>" +
             "<h3>¡Registro exitoso!</h3>" +
-            "<p>Jugador registrado para el torneo de <strong>" + juegoSeleccionado + "</strong></p>" +
+            "<p>Jugador <strong>" + juegador + "</strong> cod_eq <strong>" + codigo_eq + "</strong> registrado para el torneo de <strong>" + juegoSeleccionado + "</strong></p>" +
             "</div>";
 
         // Mostramos la seccion de preguntas de preparacion
@@ -72,6 +74,7 @@ function validarNickname() {
 
     // Si llega hasta aca, el nickname es valido
     spanError.innerHTML = "";
+    juegador = valor;
     return true;
 }
 
@@ -116,6 +119,7 @@ function validarCodigo() {
     }
 
     spanError.innerHTML = "";
+    codigo_eq = valor;
     return true;
 }
 
@@ -138,14 +142,14 @@ function hacerPreguntas() {
 
     // Lanzamos las 3 preguntas con prompt(), una despues de la otra
     // prompt() devuelve null si el usuario presiona Cancelar
-    var horas     = prompt("¿Cuántas horas por semana dedicás a jugar?");
+    var horas = prompt("¿Cuántas horas por semana dedicás a jugar?");
     var modalidad = prompt("¿Preferís jugar solo o en equipo?");
-    var rol       = prompt("¿Qué rol ocupás en tu equipo? (Atacante, Defensa, Soporte, etc.)");
+    var rol = prompt("¿Qué rol ocupás en tu equipo? (Atacante, Defensa, Soporte, etc.)");
 
     // Si el usuario cancelo, reemplazamos null por un texto indicativo
-    if (horas === "")       horas     = "No respondió esta pregunta";
-    if (modalidad === "")   modalidad = "No respondió esta pregunta";
-    if (rol === "")         rol       = "No respondió esta pregunta";
+    if (horas === "" || horas === null) horas = "No respondió esta pregunta";
+    if (modalidad === "" || modalidad === null) modalidad = "No respondió esta pregunta";
+    if (rol === "" || rol === null) rol = "No respondió esta pregunta";
 
     // Armamos el HTML con las respuestas y lo insertamos en el div "respuestas"
     var divRespuestas = document.getElementById("respuestas");
